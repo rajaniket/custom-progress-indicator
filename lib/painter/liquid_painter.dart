@@ -11,8 +11,8 @@ class LiquidPainter extends CustomPainter {
 
   @override
   void paint(Canvas canvas, Size size) {
-    double diameter = size.height;
-    double radius = size.height / 2;
+    double diameter = min(size.height, size.width);
+    double radius = diameter / 2;
 
     // Defining coordinate points. The wave starts from the bottom and ends at the top as the value changes.
     double pointX = 0;
@@ -29,14 +29,14 @@ class LiquidPainter extends CustomPainter {
     double period = value / maxValue;
 
     // Phase Shift: the horizontal shift of the sine wave along the x-axis.
-    double phaseShift = value * pi * 1.2;
+    double phaseShift = value * pi;
 
     // Plotting the sine wave by connecting various paths till it reaches the diameter.
     // Using this formula: y = A * sin(ωt + φ) + C
     for (double i = 0; i <= diameter; i++) {
       path.lineTo(
         i + pointX,
-        pointY + amplitude * sin((i * 2.5 * period * pi / diameter) + phaseShift),
+        pointY + amplitude * sin((i * 2 * period * pi / diameter) + phaseShift),
       );
     }
 
@@ -67,7 +67,6 @@ class LiquidPainter extends CustomPainter {
     // Clipping rectangular-shaped path to Oval.
     Path circleClip = Path()..addOval(Rect.fromCenter(center: Offset(radius, radius), width: diameter, height: diameter));
     canvas.clipPath(circleClip, doAntiAlias: true);
-    // drawing path on canvas
     canvas.drawPath(path, paint);
   }
 
