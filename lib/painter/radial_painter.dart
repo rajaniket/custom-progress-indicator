@@ -46,9 +46,8 @@ class RadialProgressPainter extends CustomPainter {
       ..strokeWidth = strokeWidth
       ..strokeCap = StrokeCap.round;
 
-    // Progress start angle is at the top (-pi/2 in radians).
+    // Calculate the start and sweep angles to draw the progress arc.
     double startAngle = -pi / 2;
-    // Progress end angle to complete a full cycle (2pi radians).
     double sweepAngle = 2 * pi * value / maxValue;
 
     // Drawing track.
